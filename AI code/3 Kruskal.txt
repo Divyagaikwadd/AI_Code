@@ -1,0 +1,60 @@
+# function to find the parent of a node in the disjoint set
+def find(parent, i):
+    if parent[i] == i:
+        return i
+    return find(parent, parent[i])
+
+# function to perform union of two sets
+def union(parent, rank, x, y):
+    xroot = find(parent, x)
+    yroot = find(parent, y)
+    if rank[xroot] < rank[yroot]:
+        parent[xroot] = yroot
+    elif rank[xroot] > rank[yroot]:
+        parent[yroot] = xroot
+    else:
+        parent[yroot] = xroot
+        rank[xroot] += 1
+
+# function to implement Kruskal's algorithm
+def kruskal(vertices, edges):
+    result = []
+    i = 0
+    e = 0
+    parent = []
+    rank = []
+    for node in range(vertices):
+        parent.append(node)
+        rank.append(0)
+
+    edges = sorted(edges, key=lambda item: item[2])
+
+    while e < vertices - 1:
+        u, v, w = edges[i]
+        i = i + 1
+        x = find(parent, u)
+        y = find(parent, v)
+        if x != y:
+            e = e + 1
+            result.append([u, v, w])
+            union(parent, rank, x, y)
+
+    return result
+
+# user input
+vertices = int(input("Enter the number of vertices: "))
+edges = []
+
+# take user input for the edges and their weights
+for i in range(vertices):
+    for j in range(i+1, vertices):
+        weight = int(input(f"Enter the weight of edge ({i}, {j}): "))
+        edges.append([i, j, weight])
+
+# call Kruskal's algorithm function
+result = kruskal(vertices, edges)
+
+# print the resulting minimum spanning tree
+print("Minimum Spanning Tree:")
+for u, v, weight in result:
+    print(f"({u}, {v}) --> {weight}")

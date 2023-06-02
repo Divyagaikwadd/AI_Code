@@ -1,0 +1,69 @@
+import nltk
+from nltk.chat.util import Chat, reflections
+
+reflections = {
+    "i am": "you are",
+    "i was": "you were",
+    "i": "you",
+    "i'm": "you are",
+    "i'd": "you would",
+    "i've": "you have",
+    "i'll": "you will",
+    "my": "your",
+    "you are": "I am",
+    "you were": "I was",
+    "you've": "I have",
+    "you'll": "I will",
+    "your": "my",
+    "yours": "mine",
+    "you": "me",
+    "me": "you"
+}
+
+pairs = [
+    [
+        r"Hi|Hey|Hello",
+        ["Hello! How can I assist you?"]
+    ],
+    [
+        r"What is your name?",
+        ["I am a school chatbot. You can call me ChatBot."]
+    ],
+    [
+        r"What are the available courses?",
+        ["We offer a variety of courses including Math, Science, English, History, and Computer Science."]
+    ],
+    [
+        r"What is the admission process?",
+        ["To apply for admission, you can visit our school's website and fill out the online application form."]
+    ],
+    [
+        r"What are the school timings?",
+        ["Our school timings are from 9:00 AM to 3:00 PM, Monday to Friday."]
+    ],
+    [
+        r"Tell me about the faculty",
+        ["Our faculty consists of highly qualified and experienced teachers who are dedicated to providing quality education."]
+    ],
+    [
+        r"Can you provide information about extracurricular activities?",
+        ["We offer a wide range of extracurricular activities such as sports, music, art, and debate club. Students can choose based on their interests."]
+    ],
+    [
+        r"Thank you|Thanks",
+        ["You're welcome! If you have any more questions, feel free to ask."]
+    ],
+    [
+        r"(.*)",
+        ["I'm sorry, but I'm just a chatbot and may not have the information you're looking for. Please contact the school administration for detailed assistance."]
+    ]
+]
+
+def chat():
+    print("Hi! I am ChatBot, your school assistant. How can I help you today?")
+    chat = Chat(pairs, reflections)
+    chat.converse()
+
+# Initiate the conversation
+if __name__ == "__main__":
+    chat()
